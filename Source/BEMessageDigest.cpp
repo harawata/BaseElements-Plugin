@@ -71,3 +71,24 @@ StringAutoPtr SHA256 ( StringAutoPtr message )
 }
 
 
+StringAutoPtr PBKDF2WithHmacSHA1 ( StringAutoPtr password, StringAutoPtr salt, const int iterations, const int hashLength )
+{
+	unsigned char * hash = new unsigned char[ hashLength ]();
+
+	PKCS5_PBKDF2_HMAC_SHA1(password->data(), (int)password->length(), (unsigned char*)(salt->data()), (int)salt->length(), iterations, hashLength, hash);
+
+	// convert the digest to hex
+	const int size = 2 * hashLength;
+	char * output = new char [ size + 1 ]();
+	int i = 0;
+	for ( i = 0; i < hashLength; i++ ) {
+		sprintf ( output + (i * 2), "%02x", hash[i] );
+	}
+	output [ size ] = 0;
+	StringAutoPtr digest ( new std::string ( output ) );
+
+	delete [] hash;
+	delete [] output;
+
+	return digest;
+}

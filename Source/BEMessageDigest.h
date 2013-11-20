@@ -19,6 +19,7 @@
 
 StringAutoPtr MD5 ( StringAutoPtr message );
 StringAutoPtr SHA256 ( StringAutoPtr message );
+StringAutoPtr PBKDF2WithHmacSHA1 ( StringAutoPtr password, StringAutoPtr salt, const int iterations, const int hashLength );
 
 
 

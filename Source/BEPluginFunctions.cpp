@@ -2174,3 +2174,31 @@ FMX_PROC(errcode) BE_MessageDigest ( short /* funcId */, const ExprEnv& /* envir
 
 
 
+FMX_PROC(errcode) BE_PBKDF2WithHmacSHA1 ( short /* funcId */, const ExprEnv& /* environment */, const DataVect& parameters, Data& results )
+{	
+	errcode error = NoError();
+
+	try {
+
+		// note: it cannot handle inputs with null characters.
+		StringAutoPtr password = ParameterAsUTF8String ( parameters, 0 );
+		StringAutoPtr salt = ParameterAsUTF8String ( parameters, 1 );
+		long iterations = ParameterAsLong( parameters, 2, 2000 );
+		long hashLength = ParameterAsLong( parameters, 3, 96 );
+
+		StringAutoPtr hash = PBKDF2WithHmacSHA1 ( password, salt, (int)iterations, (int)hashLength );
+
+		SetResult ( hash, results );
+
+	} catch ( bad_alloc& /* e */ ) {
+		error = kLowMemoryError;
+	} catch ( exception& /* e */ ) {
+		error = kErrorUnknown;
+	}
+
+	return MapError ( error );
+
+} // BE_PBKDF2WithHmacSHA1
+
+
+

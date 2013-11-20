@@ -152,6 +152,7 @@ enum functions {
 	kBE_JSON_Error_Description = 301,
 	kBE_JSON_ArraySize = 302,
 	kBE_JSON_Encode = 303,
+    kBE_PBKDF2WithHmacSHA1 = 310,
 //	kBE_OAuth_RequestToken = 320,
 	kBE_OAuth_RequestAccessToken = 321,
 //	kBE_OAuth_SetToken = 322,
