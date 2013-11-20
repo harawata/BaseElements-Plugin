@@ -178,10 +178,10 @@ static FMX_Int32 LoadPlugin ( FMX_ExternCallPtr plugin_call )
 	g_be_plugin->RegisterFunction ( kBE_Values_FilterOut, BE_Values_FilterOut, 2 );
 	g_be_plugin->RegisterFunction ( kBE_Values_Sort, BE_Values_Sort, 1 );
 	
-    
-	g_be_plugin->RegisterFunction ( kBE_PBKDF2WithHmacSHA1, BE_PBKDF2WithHmacSHA1, 2, 4 );
-    
-    
+
+	g_be_plugin->RegisterFunction ( kBE_PBKDF2WithHmacSHA1, BE_PBKDF2WithHmacSHA1, true, 4 );
+
+
 	// still alpha
 	
 	//	g_be_plugin->RegisterFunction ( kBE_OAuth_RequestToken, BE_OAuth_RequestAccessToken, true, 3 );
