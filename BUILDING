@@ -318,6 +318,59 @@ and expand it into a directory on the Desktop.
 	
 and then copy libxslt.a and libexslt.a from build/lib to the Libraries/osx directory and the libxslt & libexslt directories from build/include to Headers.
 
+=======================================================================
+libgpg-error - 1.24
+=======================================================================
+
+Download the source from
+
+	https://gnupg.org/download/index.html#libgcrypt
+
+and expand it into a directory on the Desktop.
+
+	./configure CFLAGS="-arch i386 -arch x86_64" LDFLAGS="-arch i386 -arch x86_64" --disable-silent-rules --prefix="`pwd`/build" --enable-static
+	make install
+
+and then copy libgpg-error.a from build/lib to the Libraries/osx directory and gpg-error.h from build/include to Headers.
+
+=======================================================================
+libgcrypt - 1.7.2
+=======================================================================
+
+Download the source from
+
+	https://gnupg.org/download/index.html#libgcrypt
+
+and expand it into a directory on the Desktop.
+
+	./configure CFLAGS="-arch i386 -DNO_ASM" LDFLAGS="-arch i386" --disable-silent-rules --prefix="`pwd`/build32" --disable-asm --with-libgpg-error-prefix=<path to libgpg-error install>
+	make install
+	make clean
+	./configure CFLAGS="-arch x86_64 -DNO_ASM" LDFLAGS="-arch x86_64" --disable-silent-rules --prefix="`pwd`/build64" --disable-asm --with-libgpg-error-prefix=<path to libgpg-error install>
+	make install
+	lipo -create build32/lib/libgcrypt.a build64/lib/libgcrypt.a -output <path to BaseElements-Plugin>/Libraries/osx/libgcrypt.a
+
+and then copy gcrypt.h from build64/include to Headers.
+
+=======================================================================
+xerces-c - 3.1.4
+=======================================================================
+
+Download the source from
+
+	http://xerces.apache.org/xerces-c/download.cgi
+
+and expand it into a directory on the Desktop.
+
+	./configure --disable-dependency-tracking CFLAGS="-arch i386" CXXFLAGS="-arch i386" LDFLAGS="-arch i386" --disable-silent-rules --prefix="`pwd`/build32"
+	make install
+	make clean
+	./configure CFLAGS="-arch x86_64" CXXFLAGS="-arch x86_64" LDFLAGS="-arch x86_64" --disable-silent-rules --prefix="`pwd`/build64"
+	make install
+	lipo -create build32/lib/libxerces-c.a build64/lib/libxerces-c.a -output <path to BaseElements-Plugin>/Libraries/osx/libxerces-c.a
+
+and then copy build64/include/xercesc directory to Headers.
+
 
 =======================================================================
 Windows
